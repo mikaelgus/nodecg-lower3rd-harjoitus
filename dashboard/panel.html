@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      .monospace {
+        font-family: monospace;
+      }
+      form {
+        padding: 4px;
+      }
+      input {
+        padding: 4px;
+		margin: 10px 0;
+      }
+      button {
+        margin-top: 10px;
+        padding: 8px;
+		font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Vaihda tässä puhujan tiedot!</p>
+    <form id="speakerForm">
+      <label for="speaker">Puhujan nimi:</label>
+      <input type="text" id="speaker" /></br>
+      <label for="role">Puhujan rooli:</label>
+      <input type="text" id="role" /></br>
+      <button type="submit">Vaihda tiedot</button>
+    </form>
+
+    <script>
+      const speakerRep = nodecg.Replicant("speakerReplicant");
+      const speaker = document.getElementById("speaker");
+      const roleRep = nodecg.Replicant("roleReplicant");
+      const role = document.getElementById("role");
+      const speakerForm = document.getElementById("speakerForm");
+
+      speakerForm.addEventListener("submit", (e) => {
+        e.preventDefault;
+        speakerRep.value = speaker.value;
+        roleRep.value = role.value;
+        console.log("nimieä vaihdettu");
+      });
+
+      speakerRep.on("change", (newValue, oldValue) => {
+        console.log(`speakerRep changed from ${oldValue} to ${newValue}`);
+        speaker.value = newValue;
+      });
+      roleRep.on("change", (newValue, oldValue) => {
+        console.log(`roleRep changed from ${oldValue} to ${newValue}`);
+        role.value = newValue;
+      });
+    </script>
+  </body>
+</html>
